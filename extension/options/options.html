@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>JobMatcher Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <img src="../icons/icon48.png" alt="" width="34" height="34" />
+      <div>
+        <h1>JobMatcher Settings</h1>
+        <p>Set up once — then analyze any job posting in one click.</p>
+      </div>
+    </header>
+
+    <section>
+      <h2><span class="step">1</span>Your resume</h2>
+      <p class="hint">Upload a PDF or DOCX. The extracted text is stored locally in your browser and is only ever sent to the AI provider you configure below.</p>
+
+      <label class="file-drop" for="resumeFile">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <span><strong>Choose a file</strong> — PDF or DOCX</span>
+        <input type="file" id="resumeFile" accept=".pdf,.docx" />
+      </label>
+
+      <div id="resumeStatus" class="hint status-line"></div>
+      <textarea id="resumeText" rows="8" placeholder="Extracted resume text will appear here — you can edit it before saving."></textarea>
+      <div class="actions">
+        <button id="saveResume">Save resume</button>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="step">2</span>Your AI model</h2>
+      <p class="hint">JobMatcher is model-agnostic: bring your own API key, or point it at a local model. Requests go directly from your browser to the endpoint below — there is no middleman server.</p>
+
+      <label>Provider</label>
+      <select id="provider">
+        <option value="anthropic">Anthropic (Claude)</option>
+        <option value="openai">OpenAI (GPT)</option>
+        <option value="gemini">Google Gemini</option>
+        <option value="groq">Groq</option>
+        <option value="openai-compatible">Other OpenAI-compatible (Grok/xAI, NVIDIA NIM, Together, LM Studio, vLLM, custom...)</option>
+        <option value="ollama">Ollama (local)</option>
+      </select>
+
+      <label>Base URL</label>
+      <input type="text" id="baseUrl" placeholder="https://api.anthropic.com" />
+
+      <label>API key <span class="hint">(leave blank for local models that don't require one)</span></label>
+      <input type="password" id="apiKey" placeholder="sk-..." />
+
+      <label>Model name</label>
+      <input type="text" id="model" placeholder="claude-opus-4-5-20251101" />
+
+      <p class="hint callout" id="ollamaHint" hidden><strong>Ollama note:</strong> Ollama rejects browser extensions by default. On macOS run
+        <code>launchctl setenv OLLAMA_ORIGINS "chrome-extension://*"</code> in Terminal, then quit and reopen Ollama
+        (Linux/Windows: set the <code>OLLAMA_ORIGINS=chrome-extension://*</code> environment variable for the Ollama service).</p>
+
+      <div id="configStatus" class="hint status-line"></div>
+      <div class="actions">
+        <button id="saveConfig">Save model settings</button>
+        <button id="testConfig" class="secondary">Send test prompt</button>
+      </div>
+    </section>
+
+    <script src="../lib/mammoth.browser.min.js"></script>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

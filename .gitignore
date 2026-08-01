@@ -1,0 +1,6 @@
+# Ignore he claude contex and references
+PUBLISHING.md
+CLAUDE.md
+REFERENCES.md
+CONTEXT.md 
+*.zip
